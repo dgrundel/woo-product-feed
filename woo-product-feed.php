@@ -1,13 +1,24 @@
 <?php /*
     Plugin Name: Woo Product Feed
-    Plugin URI: http://webpresencepartners.com/
-    Description: Free CSV import utility for WooCommerce
+    Plugin URI: https://github.com/dgrundel/woo-product-feed
+    Description: Free public CSV export utility for WooCommerce
     Version: 1
     Author: Daniel Grundel, Web Presence Partners
     Author URI: http://www.webpresencepartners.com
 */
 
     class WebPres_Woo_Product_Feed {
+        
+        public function __construct() {
+            add_action('init', array(&$this, 'check_request'));
+        }
+        
+        public function check_request() {
+            if(isset($_REQUEST['woo_product_feed'])) {
+                $this->csv();
+                exit();
+            }
+        }
         
         public function csv() {
             
@@ -26,8 +37,8 @@
                 foreach($products as $product) {
                     
                     $output[$line_number][] = $product->post_title;
-                    $output[$line_number][] = $product->post_content;
-                    $output[$line_number][] = $product->post_excerpt;
+                    $output[$line_number][] = self::strip_whitespace(nl2br($product->post_content));
+                    $output[$line_number][] = self::strip_whitespace(nl2br($product->post_excerpt));
                     
                     $output[$line_number][] = get_post_meta($product->ID, '_weight', true);
                     $output[$line_number][] = get_post_meta($product->ID, '_length', true);
@@ -51,10 +62,22 @@
                     $output[$line_number][] = get_post_meta($product->ID, '_product_url', true);
                     
                     $product_categories = wp_get_object_terms($product->ID, 'product_cat');
-                    $output[$line_number][] = is_array($product_categories) ? implode('|',$product_categories) : '';
+                    $product_category_names = array();
+                    if(is_array($product_categories)) {
+                        foreach($product_categories as $product_category) {
+                            $product_category_names[] = $product_category->name;
+                        }
+                    }
+                    $output[$line_number][] = implode('|',$product_category_names);
                     
                     $product_tags = wp_get_object_terms($product->ID, 'product_tag');
-                    $output[$line_number][] = is_array($product_tags) ? implode('|',$product_tags) : '';
+                    $product_tag_names = array();
+                    if(is_array($product_tags)) {
+                        foreach($product_tags as $product_tag) {
+                            $product_tag_names[] = $product_tag->name;
+                        }
+                    }
+                    $output[$line_number][] = implode('|',$product_tag_names);
                     
                     $attachment_query = array(
                         'numberposts' => -1,
@@ -86,4 +109,19 @@
             echo implode("\n", $lines);
         }
         
+        public static function strip_whitespace($content) {
+            $content = trim($content);
+            
+            $content = str_replace("\n", ' ', $content );
+            $content = str_replace("\r", ' ', $content );
+            
+            //remove repeating spaces
+            $content = preg_replace('/(?:\s\s+|\n|\t)/', ' ', $content);
+            
+            return $content;
+        }
+        
     }
+    
+    $webpres_woo_product_feed = new WebPres_Woo_Product_Feed();
+    
