@@ -97,6 +97,8 @@
                 }
             }
             
+            $file_name = "woo-product-export.csv";
+            
             header("Content-type: application/csv");
             header("Content-Disposition: attachment; filename={$file_name}");
             header("Pragma: no-cache");
