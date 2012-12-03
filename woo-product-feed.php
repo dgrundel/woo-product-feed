@@ -81,7 +81,8 @@
                     
                     $attachment_query = array(
                         'numberposts' => -1,
-                        'post_status' => 'publish',
+                        'post_status' => 'inherit',
+                        'post_mime_type' => 'image',
                         'post_type' => 'attachment',
                         'post_parent' => $product->ID);
                     $attachments = get_posts($attachment_query);
