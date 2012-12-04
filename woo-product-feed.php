@@ -33,6 +33,35 @@
                 'post_type' => 'product');
             $products = get_posts($product_query);
             
+            $output[$line_number][] = 'post_title';
+            $output[$line_number][] = 'post_content';
+            $output[$line_number][] = 'post_excerpt';
+            $output[$line_number][] = '_weight';
+            $output[$line_number][] = '_length';
+            $output[$line_number][] = '_width';
+            $output[$line_number][] = '_height';
+            $output[$line_number][] = '_regular_price';
+            $output[$line_number][] = '_sale_price';
+            $output[$line_number][] = '_price';
+            $output[$line_number][] = '_tax_status';
+            $output[$line_number][] = '_tax_class';
+            $output[$line_number][] = '_visibility';
+            $output[$line_number][] = '_featured';
+            $output[$line_number][] = '_sku';
+            $output[$line_number][] = '_downloadable';
+            $output[$line_number][] = '_virtual';
+            $output[$line_number][] = '_stock';
+            $output[$line_number][] = '_stock_status';
+            $output[$line_number][] = '_backorders';
+            $output[$line_number][] = '_manage_stock';
+            $output[$line_number][] = '_product_type';
+            $output[$line_number][] = '_product_url';
+            $output[$line_number][] = 'product_cat';
+            $output[$line_number][] = 'product_tag';
+            $output[$line_number][] = 'product_image_urls';
+            
+            $line_number++;
+            
             if(is_array($products)) {
                 foreach($products as $product) {
                     
