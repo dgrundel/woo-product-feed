@@ -15,7 +15,7 @@ Products are pulled from the database using WordPress' built-in get_posts() meth
 
 You can read the docs for this method here:
 
-http://codex.wordpress.org/Template_Tags/get_posts
+- http://codex.wordpress.org/Template_Tags/get_posts
 
 You can set the following args via GET or POST params:
 
