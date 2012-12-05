@@ -42,8 +42,7 @@
                 'exclude',
                 'meta_key',
                 'meta_value',
-                'post_parent',
-                'post_status');
+                'post_parent');
             
             foreach($settable_args as $arg) {
                 if(isset($_REQUEST[$arg])) $product_query[$arg] = $_REQUEST[$arg];
