@@ -31,6 +31,24 @@
                 'numberposts' => -1,
                 'post_status' => 'publish',
                 'post_type' => 'product');
+            
+            $settable_args = array(
+                'numberposts',
+                'offset',
+                'category',
+                'orderby',
+                'order',
+                'include',
+                'exclude',
+                'meta_key',
+                'meta_value',
+                'post_parent',
+                'post_status');
+            
+            foreach($settable_args as $arg) {
+                if(isset($_REQUEST[$arg])) $product_query[$arg] = $_REQUEST[$arg];
+            }
+            
             $products = get_posts($product_query);
             
             $output[$line_number][] = 'post_title';
