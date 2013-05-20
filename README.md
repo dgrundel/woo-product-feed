@@ -35,17 +35,17 @@ You can set the following args via GET or POST params:
 Get the first 5 products:
 
 ```
-http://yourblog.com/?woo_product_feed?numberposts=5
+http://yourblog.com/?woo_product_feed&numberposts=5
 ```
 
 Get products in category with ID 47:
 
 ```
-http://yourblog.com/?woo_product_feed?category=47
+http://yourblog.com/?woo_product_feed&category=47
 ```
 
 Get products ordered by product name (post_title), A to Z (ascending):
 
 ```
-http://yourblog.com/?woo_product_feed?orderby=title&order=asc
+http://yourblog.com/?woo_product_feed&orderby=title&order=asc
 ```
